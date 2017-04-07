@@ -1,0 +1,100 @@
+{
+	"constants":{
+		"bodyCenterValue": 50,
+		"midOffsetFromHoriz":25,
+		"legOffsetFromHoriz":-75,
+		"bodyRange":{
+			"min":0,
+			"max":100
+		},
+		"middleRange":{
+			"min":0,
+			"max":100
+		},
+		"legRange":{
+			"min":0,
+			"max":100
+		}
+	},
+
+	"legs":[
+		{
+			"name": "FR",
+			"motors": {
+				"body" : {
+					"pinValue":12,
+					"offset":-19
+				 },
+				 "middle":{
+					"pinValue":13,
+					"horizValue":53
+				 },
+				 "leg":{
+					"pinValue":14,
+					"offset":10,
+					"horizValue":89
+				 }
+			}
+		},
+
+		{
+			"name": "FL",
+			"motors": {
+				"body" : {
+					"pinValue":8,
+					"offset":13
+				 },
+				 "middle":{
+					"pinValue":9,
+					"offset":-5,
+					"horizValue":55
+				 },
+				 "leg":{
+					"pinValue":10,
+					"offset":0,
+					"horizValue":94
+				 }
+			}
+
+		},
+
+		{
+			"name": "BR",
+			"motors": {
+				"body" : {
+					"pinValue":4,
+					"offset":17
+				 },
+				 "middle":{
+					"pinValue":5,
+					"horizValue":53
+				 },
+				 "leg":{
+					"pinValue":6,
+					"horizValue":95
+				 }
+			}
+		},
+
+		{
+			"name": "BL",
+			"motors": {
+				"body" : {
+					"pinValue":0,
+					"offset":-15
+				 },
+				 "middle":{
+					"pinValue":1,
+					"horizValue":60
+				 },
+				 "leg":{
+					"pinValue":2,
+					"horizValue":95
+				 }
+			}
+		}
+
+
+	]
+
+}

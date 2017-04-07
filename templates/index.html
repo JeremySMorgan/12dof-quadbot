@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+  <title>Control Interface</title>
+
+  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/socket.io.js"></script>
+  <script src="/static/js/nouislider.js"></script>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+
+  <link rel="stylesheet" href="/static/css/nouislider.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <!--
+  <link rel="stylesheet" href="/static/css/bootstrap.css">
+-->
+  <link rel="stylesheet" href="/static/css/yeti.css">
+  <link rel="stylesheet" href="/static/css/button.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header js-page-header text-center">
+      <h1> Control Interface</h1>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <h3 class="text-center"> Video Feed</h3>
+        <img id="video_img" class="image-responsive" />
+        <!--<canvas id="video_display" class="text-center">
+        </canvas>-->
+
+      </div>
+
+      <div class="col-md-4">
+
+
+        <div class="row">
+          <div class="col-md-1"></div>
+
+          <div class="col-md-10 centered">
+            <table class="table">
+              <h3 class="centered text-center">Robot Status</h3>
+
+              <!-- Robot Status inserted here by initializeStatus() in main.js -->
+              <tbody id="statusParent">
+              </tbody>
+
+            </table>
+          </div>
+          <div class="col-md-2 ">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 ">
+        <h2 class="text-center ">Controls</h2>
+
+        <div class=" " id="sliderControls">
+          <h3>slider controls</h3>
+          <h4>Horizantal Video</h4>
+          <div id="horizontalVideo"></div>
+          <br>
+          <h4> Vertical Video</h4>
+          <div id="verticalVideo"></div>
+          <br>
+          <h4>xMovement</h4>
+          <div id="xMovement"></div>
+          <br>
+          <h4>yMovement</h4>
+          <div id="yMovement"></div>
+        </div>
+
+        <div id="gamepadControls">
+          <h4>gamepade controls</h4>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5>xMovement</h5></div>
+                    <div class="col-md-8">
+                      <div class="progress">
+                        <div id="gamepad_x_movement" class="progress-bar progress-bar-success" style="width: 50%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5>yMovement</h5></div>
+                    <div class="col-md-8">
+                      <div class="progress">
+                        <div id="gamepad_y_movement" class="progress-bar progress-bar-success" style="width: 50%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5>Horizantal Video</h5></div>
+                    <div class="col-md-8">
+                      <div class="progress">
+                        <div id="gamepad_horizontal_video" class="progress-bar progress-bar-success" style="width: 50%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5>Vertical Video</h5></div>
+                    <div class="col-md-8">
+                      <div class="progress">
+                        <div id="gamepad_vertical_video" class="progress-bar progress-bar-success" style="width: 50%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div id="permenant_controls">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+
+</html>
