@@ -40,6 +40,8 @@ class Leg(object):
 		self.leg.moveTo(legEndVal)
 
 
+    # std_pvt_body_delta,	std_pvt_middle_delta,	std_pvt_leg_delta,	velocity/10,	time_delay/10)
+		
 	# velocity		- speed of movement (second delay between incrememnts in position)
 	# Specific motion in which the robot lifts the middle and leg, pivots the body and drops the leg in front of the robot
 	def legExtend(self, body_delta, middle_delta, leg_delta, velocity, time_delay):

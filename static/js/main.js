@@ -13,6 +13,13 @@ var data = {
     "type": "button",
     "element_class": "col-md-4",
     "labelSize": 4
+  }, {
+    "name": "laser",
+    "elementId": "laserButton",
+    "value": 0,
+    "type": "button",
+    "element_class": "col-md-4",
+    "labelSize": 4
   }],
 
   // display types: progress_bar,
@@ -43,7 +50,7 @@ var data = {
   "controls": {
     "poll_time": 50,
     "leastSignificantValidChange": 4,
-    "sendDelay": 650,
+	"autoSend":false,
     "lastSendTime": -1,
     "keyboard": {
 
@@ -87,6 +94,7 @@ var data = {
       "gamepadConnected": false,
       "gamepadVisible": false,
       "gamepadPollDelay": 50,
+      "R1Down":false,
       "inputs": [{
         "name": "xMovement",
         "elementId": "gamepad_x_movement",
@@ -209,19 +217,6 @@ $(document).ready(function() {
   initializeStatus();
   initializeGamepad();
 
-
-
-  setInterval(function() {
-    var date = new Date();
-    var now = date.getTime();
-    if ((now - data.controls.lastSendTime) >= data.controls.sendDelay) {
-      send_data();
-      data.controls.lastSendTime = now;
-    } else {
-      console.log(now - data.controls.lastSendTime);
-    }
-  }, data.controls.sendDelay);
-
 });
 
 
@@ -259,7 +254,6 @@ function initializeSliders() {
       console.log("Sliders changed, sending data");
       send_data();
     });
-
   }
 
 }

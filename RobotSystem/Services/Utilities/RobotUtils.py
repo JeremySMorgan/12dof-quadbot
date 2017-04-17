@@ -1,4 +1,4 @@
-import datetime
+import datetime 
 
 class RobotUtils(object):
 
@@ -17,8 +17,12 @@ class RobotUtils(object):
 
 	LEG_DEBUG 		= False					# Debug Legs
 	MOTOR_DEBUG 	= False					# Debug Motors
-	LIVE_TESTING	= False					# Dictates whether program is executing on robot or on a development computer
-	VIDEO_STEAMING	= False					# Determines whether the computer/Pi streams live video footage
+	LIVE_TESTING	= True					# Dictates whether program is executing on robot or on a development computer
+	VIDEO_STEAMING	= True					# Determines whether the computer/Pi streams live video footage
+	LASER_ENABLE 	= True					# Enables Laser
+	
+	LASER_PIN		= 17						# Which pin laser is connected to
+	
 	AGENDA_UPDATE_SPEED = .1				# Time delay between polls of new agenda
 
 	TURN_LEFT 		= 0						# Arbitrary constants which are used to commincate moves between the hypervisor and the motion planner
@@ -27,18 +31,26 @@ class RobotUtils(object):
 	BACKWARD 		= 3
 	STOP			= 4
 	AUTONOMOUS		= 5
+	LASER_ON		= 6
+	LASER_OFF		= 7
+		
+	INVALID_DATA_ERROR = 8
 
-	INVALID_DATA_ERROR = 6
-
-	HORIZONTAL_VID_PIN = 8
-	VERTICAL_VID_PIN = 	4
-
+	HORIZONTAL_VID_PIN = 3
+	HORIZONTAL_VID_CENTER = 40
+	
+	VERTICAL_VID_PIN = 	7
+	VERTICAL_VID_CENTER = 25
+	
 	HORIZONTAL_VID_MIN_VAL = 0
 	HORIZONTAL_VID_MAX_VAL = 100
 
 	VERTICAL_VID_MIN_VAL = 0
 	VERTICAL_VID_MAX_VAL = 100
+	
+	MULTI_THREADING_ENABLE = True
 
+	
 
 	COLORS = {								# Unix codes for special priting
 		"HEADER"		: 	{"value":'\033[95m', "code":0},
@@ -77,10 +89,3 @@ class RobotUtils(object):
 		prefix = prefix +  RobotUtils.COLORS["BOLD"]["value"]+ RobotUtils.COLORS["UNDERLINE"]["value"]+ caller+ RobotUtils.COLORS["ENDC"]["value"]+ ":"
 		print  prefix, RobotUtils.COLORS[color]["value"] ,message , RobotUtils.COLORS["ENDC"]["value"]
 
-
-#
-#
-#
-#
-#
-#
