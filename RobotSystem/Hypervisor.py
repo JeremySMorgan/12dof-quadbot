@@ -162,7 +162,6 @@ class Hypervisor():
                 self.agendaThread._Thread_stop()
                 print "attepy to shutdown thread complete"
             else:                    
-                print "starting update agenda"
                 data = self.current_data
                 self.updateAgenda(data)
 

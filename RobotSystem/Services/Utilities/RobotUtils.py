@@ -13,14 +13,14 @@ class RobotUtils(object):
 	SERVO_MIN		= 130					# Minumum tick count for duty cycle
 	SERVO_MAX		= 570 					# Maximum tick count for duty cycle
 	FREQUENCY		= 50 					# 50 Hz creates a 20 ms period, which servos operate with
-	DATA_FILE	 	= "../ProjectPrism/RobotSystem/Services/MotorCalibration.json" 	# path to data file
+	DATA_FILE	 	= "../12dof-quadbot/RobotSystem/Services/MotorCalibration.json" 	# path to data file
 
 	LEG_DEBUG 		= False					# Debug Legs
 	MOTOR_DEBUG 	= False					# Debug Motors
 	
-	LIVE_TESTING	= False					# Dictates whether program is executing on robot or on a development computer
+	LIVE_TESTING	= True					# Dictates whether program is executing on robot or on a development computer
 	VIDEO_STEAMING	= False					# Determines whether the computer/Pi streams live video footage
-	LASER_ENABLE 	= False					# Enables Laser
+	LASER_ENABLE 	= True					# Enables Laser
 
 	LASER_PIN		= 17					# Which pin laser is connected to
 	
