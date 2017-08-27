@@ -24,30 +24,30 @@ connections = 0
 
 @app.route('/',  methods=['GET',  'POST'])
 def index():
-	return render_template('index.html',  async_mode=socketio.async_mode)
+    return render_template('index.html',  async_mode=socketio.async_mode)
 
 def background_thread():
-	
-	if RobotUtils.VIDEO_STEAMING and RobotUtils.LIVE_TESTING:
-		import base64
-		import picamera
+    
+    if RobotUtils.VIDEO_STEAMING and RobotUtils.LIVE_TESTING:
+        import base64
+        import picamera
 
-		c = picamera.PiCamera()
-		c.resolution = (400,400)
-		c.framerate = 80
-		c.hflip = False
-		c.vflip = True
-		
-		time.sleep(2)		
-		print "loop starting"
-		while True:
-			c.capture('image.png')
-			with file('image.png') as f:
-				data = f.read()
-				socketio.emit('image',{'image':True,'buffer':data.encode('base64')})							
-				print "image sent"
-			socketio.sleep(.5)
-			
+        c = picamera.PiCamera()
+        c.resolution = (400,400)
+        c.framerate = 80
+        c.hflip = False
+        c.vflip = True
+        
+        time.sleep(2)        
+        print "loop starting"
+        while True:
+            c.capture('image.png')
+            with file('image.png') as f:
+                data = f.read()
+                socketio.emit('image',{'image':True,'buffer':data.encode('base64')})                            
+                print "image sent"
+            socketio.sleep(.5)
+            
 
 @socketio.on('valueUpdate')
 def valueUpdateHandler(message):
@@ -68,25 +68,25 @@ def test_connect():
 def test_disconnect():
     global connections
     connections -= 1
-    RobotUtils.ColorPrinter("app.py",str( 'Client disconnected. ' +str(connections)+ " current connections" ), 'OKGREEN')
+    RobotUtils.ColorPrinter( "app.py", str( 'Client disconnected. ' + str(connections)+ " current connections" ), 'OKGREEN' )
 
 if __name__ == '__main__':
     global quadbot
     quadbot = Hypervisor()
+
     try:
         global thread
-        print "starting thread"
         thread = Thread(target = background_thread)
-        thread.start()		
-        
+        thread.start()
         socketio.run(app,  debug=True,use_reloader=False)
-
+    
     except KeyboardInterrupt:
         RobotUtils.ColorPrinter("app.py", "Server shutting down", 'FAIL')
-        quadbot.stand()
-        thread.kill()
-        if (RobotUtils.MULTI_THREADING_ENABLE):
-			quadbot.endHypervisor()
+        socketio.stop()
+        print "Trying to end hypervisor"
+        quadbot.endHypervisor()
+        print "Called endHypervisor()"
+
         try: 
             sys.exit(0)
         except SystemExit:

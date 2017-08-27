@@ -17,13 +17,14 @@ class RobotUtils(object):
 
 	LEG_DEBUG 		= False					# Debug Legs
 	MOTOR_DEBUG 	= False					# Debug Motors
-	LIVE_TESTING	= True					# Dictates whether program is executing on robot or on a development computer
-	VIDEO_STEAMING	= True					# Determines whether the computer/Pi streams live video footage
-	LASER_ENABLE 	= True					# Enables Laser
 	
-	LASER_PIN		= 17						# Which pin laser is connected to
+	LIVE_TESTING	= False					# Dictates whether program is executing on robot or on a development computer
+	VIDEO_STEAMING	= False					# Determines whether the computer/Pi streams live video footage
+	LASER_ENABLE 	= False					# Enables Laser
+
+	LASER_PIN		= 17					# Which pin laser is connected to
 	
-	AGENDA_UPDATE_SPEED = .1				# Time delay between polls of new agenda
+	AGENDA_UPDATE_SPEED = 1				# Time delay between polls of new agenda
 
 	TURN_LEFT 		= 0						# Arbitrary constants which are used to commincate moves between the hypervisor and the motion planner
 	TURN_RIGHT	 	= 1
@@ -48,7 +49,6 @@ class RobotUtils(object):
 	VERTICAL_VID_MIN_VAL = 0
 	VERTICAL_VID_MAX_VAL = 100
 	
-	MULTI_THREADING_ENABLE = True
 
 	
 
