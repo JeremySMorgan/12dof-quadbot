@@ -19,7 +19,7 @@ class RobotUtils(object):
 	MOTOR_DEBUG 	= False					# Debug Motors
 	
 	LIVE_TESTING	= True					# Dictates whether program is executing on robot or on a development computer
-	VIDEO_STEAMING	= False					# Determines whether the computer/Pi streams live video footage
+	VIDEO_STEAMING	= True					# Determines whether the computer/Pi streams live video footage
 	LASER_ENABLE 	= True					# Enables Laser
 
 	LASER_PIN		= 17					# Which pin laser is connected to

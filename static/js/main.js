@@ -289,12 +289,11 @@ var ctx = null;
 $(document).ready(function() {
   ctx = document.getElementById('video_img'); //.getContext('2d');
 })
+
 socket.on("image", function(info) {
   if (info.image) {
-    //var img = new Image();
     console.log("image recieved");
     ctx.src = 'data:image/jpeg;base64,' + info.buffer;
-    //ctx.drawImage(img, 0, 0);
   }
 });
 

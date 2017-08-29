@@ -84,8 +84,6 @@ class MotionController(object):
         self.LaserDriver.Off()
 
     def updateCameras(self, data):
-        #print int(float(data['data']['horizontalVideo']))
-        #print type(data['data']['verticalVideo'])
         horizVidValue = self.RobotUtils.HORIZONTAL_VID_CENTER + (int(float(data['data']['horizontalVideo'])))-50
         vertVidValue = self.RobotUtils.VERTICAL_VID_CENTER + (int(float(data['data']['verticalVideo'])))-50 
 
@@ -228,59 +226,61 @@ class MotionController(object):
 		self.RobotUtils.ColorPrinter(self.__class__.__name__, 'Forward', 'OKBLUE')
 
 		# Motion Variables
-		turnDegree = -20
+		turnDegree = 15
 		stepHeightMid = 60
 		stepHeightLeg = 15
 		lungeTurnDeg = turnDegree
 
-		lunge_increment_delay = .001
+		lunge_increment_delay = 0
 		lunge_increment_count= 50
+		motion_increment_delay = 0
+		mid_step_time_delay = 0
 		
-		pre_lunge_motion_increment_delay = .01
-		pre_lunge_mid_step_time_delay = .01
+		pre_lunge_motion_increment_delay = 0
+		pre_lunge_mid_step_time_delay = 0
 		
-		post_lunge_motion_increment_delay = .005
-		post_lunge_mid_step_time_delay = .005
+		post_lunge_motion_increment_delay = 0
+		post_lunge_mid_step_time_delay = 0
 		
-		step_time_delay = .02
-		end_delay = .5
+		step_time_delay = .05
+		end_delay = 2
 
-		# Backs forward
-		self.back_left.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, pre_lunge_motion_increment_delay, pre_lunge_mid_step_time_delay)
-		time.sleep(step_time_delay)
+		if self.forwardSide == 0:
 
-		self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, 0, 0)
-		time.sleep(step_time_delay)
-		
-		self.lunge(lungeTurnDeg,0,0,-lungeTurnDeg,0,0,-lungeTurnDeg,0,0,lungeTurnDeg,0,0,lunge_increment_count,lunge_increment_delay)
-		
-		time.sleep(step_time_delay)
-		
-		# front push forward
-				
-		if (self.forwardSide==0):
-			self.front_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
 			time.sleep(step_time_delay)
-						
-			self.front_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+
+			self.front_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.front_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
 			time.sleep(step_time_delay)
 
 			self.forwardSide = 1
 		
-		else:			
-			self.front_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+		else:
+
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
 			time.sleep(step_time_delay)
 
-			self.front_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.front_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
 			time.sleep(step_time_delay)
 
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.front_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
 			self.forwardSide = 0
 		
+        
+		time.sleep(end_delay)
+		self.reset()
 		time.sleep(end_delay)
 		
-		self.reset()
-
-
     def backward(self):
 		self.stopped = False
 		self.RobotUtils.ColorPrinter(self.__class__.__name__, 'in MotionController.Backward', 'OKBLUE')
@@ -304,30 +304,30 @@ class MotionController(object):
 		end_delay = .5
 
 		# Backs forward
-		self.front_left.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, pre_lunge_motion_increment_delay, pre_lunge_mid_step_time_delay)
+		self.front_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, pre_lunge_motion_increment_delay, pre_lunge_mid_step_time_delay)
 
 		time.sleep(step_time_delay)
-		self.front_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, 0, 0)
+		self.front_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, 0, 0)
 		
 		time.sleep(step_time_delay)
-		self.lunge(lungeTurnDeg,0,0,-lungeTurnDeg,0,0,-lungeTurnDeg,0,0,lungeTurnDeg,0,0,lunge_increment_count,lunge_increment_delay)
+		self.lunge(lungeTurnDeg,0,0,lungeTurnDeg,0,0,lungeTurnDeg,0,0,-lungeTurnDeg,0,0,lunge_increment_count,lunge_increment_delay)
 		time.sleep(step_time_delay)
 		
 		# front push forward
 		if (self.forwardSide==0):
-			self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
 			time.sleep(step_time_delay)
 						
-			self.back_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
 			time.sleep(step_time_delay)
 
 			self.forwardSide = 1
 		
 		else:			
-			self.back_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
 			time.sleep(step_time_delay)
 
-			self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
 			time.sleep(step_time_delay)
 
 			self.forwardSide = 0
@@ -393,31 +393,126 @@ class MotionController(object):
 # old forward command
 
 '''
-if (self.forwardSide==0):
+		self.stopped = False
 
-	self.back_left.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
+		self.RobotUtils.ColorPrinter(self.__class__.__name__, 'Forward', 'OKBLUE')
 
-	self.front_left.standardPivotStep(turnDegree/2.0, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
+		# Motion Variables
+		turnDegree = 15
+		stepHeightMid = 60
+		stepHeightLeg = 15
+		lungeTurnDeg = turnDegree
 
-	self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
+		lunge_increment_delay = 0
+		lunge_increment_count= 50
+		motion_increment_delay = 0
+		mid_step_time_delay = 0
+		
+		pre_lunge_motion_increment_delay = 0
+		pre_lunge_mid_step_time_delay = 0
+		
+		post_lunge_motion_increment_delay = 0
+		post_lunge_mid_step_time_delay = 0
+		
+		step_time_delay = .05
+		end_delay = 2
 
-	self.forwardSide = 1
+		if self.forwardSide == 0:
 
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
 
+			self.front_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
 
-else:
-	self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
-	
-	self.front_right.standardPivotStep(-turnDegree/2.0, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
-	
-	self.back_left.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
-	time.sleep(step_time_delay)
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
 
-	self.forwardSide = 0
+			self.front_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.forwardSide = 1
+		
+		else:
+
+			self.back_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.front_right.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.back_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.front_left.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, motion_increment_delay, mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+            self.forwardSide = 0
+		
+        
+		time.sleep(end_delay)
+		self.reset()
+		time.sleep(end_delay)
 '''
 
+
+# Non elegent forward gate. sorta works
+'''
+self.stopped = False
+
+		self.RobotUtils.ColorPrinter(self.__class__.__name__, 'Forward', 'OKBLUE')
+
+		# Motion Variables
+		turnDegree = -20
+		stepHeightMid = 60
+		stepHeightLeg = 15
+		lungeTurnDeg = turnDegree
+
+		lunge_increment_delay = .001
+		lunge_increment_count= 50
+		
+		pre_lunge_motion_increment_delay = .01
+		pre_lunge_mid_step_time_delay = .01
+		
+		post_lunge_motion_increment_delay = .005
+		post_lunge_mid_step_time_delay = .005
+		
+		step_time_delay = .02
+		end_delay = .5
+
+		# Backs forward
+		self.back_left.standardPivotStep(turnDegree, stepHeightMid, stepHeightLeg, pre_lunge_motion_increment_delay, pre_lunge_mid_step_time_delay)
+		time.sleep(step_time_delay)
+
+		self.back_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, 0, 0)
+		time.sleep(step_time_delay)
+		
+		self.lunge(lungeTurnDeg,0,0,-lungeTurnDeg,0,0,-lungeTurnDeg,0,0,lungeTurnDeg,0,0,lunge_increment_count,lunge_increment_delay)
+		
+		time.sleep(step_time_delay)
+		
+		# front push forward
+				
+		if (self.forwardSide==0):
+			self.front_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			time.sleep(step_time_delay)
+						
+			self.front_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.forwardSide = 1
+		
+		else:			
+			self.front_left.standardPivotStep(turnDegree, stepHeightMid*2, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.front_right.standardPivotStep(-turnDegree, stepHeightMid, stepHeightLeg, post_lunge_motion_increment_delay, post_lunge_mid_step_time_delay)
+			time.sleep(step_time_delay)
+
+			self.forwardSide = 0
+		
+		time.sleep(end_delay)
+		
+		self.reset()
+
+'''

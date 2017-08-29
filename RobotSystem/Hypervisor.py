@@ -60,7 +60,7 @@ class Hypervisor():
 
     def testSuite(self,operation):
 
-        sleep_time_between_same_motions = 2
+        sleep_time_between_same_motions = 0
         sleep_time_between_different_motions = 5
         test_count = 5
 
